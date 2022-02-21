@@ -15,3 +15,20 @@ databaseChangeLog:
         encoding: UTF-8
         path: migrations/002-fill-in-tables.sql
         relativeToChangelogFile: true
+  - changeSet:
+      id: 3
+      author: bzavoevanyy
+      comment: add copyright table
+      sqlFile:
+        encoding: UTF-8
+        path: migrations/003-add-copyright-table.sql
+        relativeToChangelogFile: true
+  - changeSet:
+      id: 4
+      author: bzavoevanyy
+      comment: add copyright table
+      sqlFile:
+        encoding: UTF-8
+        path: migrations/004-fill-copyright-table.sql
+        relativeToChangelogFile: true
+

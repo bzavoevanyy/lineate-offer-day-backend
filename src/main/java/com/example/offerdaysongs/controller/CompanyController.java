@@ -1,13 +1,12 @@
 package com.example.offerdaysongs.controller;
 
 import com.example.offerdaysongs.dto.CompanyDto;
-import com.example.offerdaysongs.dto.RecordingDto;
-import com.example.offerdaysongs.dto.SingerDto;
+import com.example.offerdaysongs.dto.CopyrightDto;
 import com.example.offerdaysongs.dto.requests.CreateCompanyRequest;
 import com.example.offerdaysongs.model.Company;
-import com.example.offerdaysongs.model.Singer;
 import com.example.offerdaysongs.service.CompanyService;
 
+import com.example.offerdaysongs.service.CopyrightService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,9 +22,11 @@ import java.util.stream.Collectors;
 public class CompanyController {
     private static final String ID = "id";
     private final CompanyService companyService;
+    private final CopyrightService copyrightService;
 
-    public CompanyController(CompanyService companyService) {
+    public CompanyController(CompanyService companyService, CopyrightService copyrightService) {
         this.companyService = companyService;
+        this.copyrightService = copyrightService;
     }
 
     @GetMapping("/")
@@ -39,6 +40,13 @@ public class CompanyController {
     public CompanyDto get(@PathVariable(ID) long id) {
         var company = companyService.getById(id);
         return convertToDto(company);
+    }
+
+    @GetMapping("/{id:[\\d]+}/copyrights")
+    public List<CopyrightDto> getCopyrights(@PathVariable(ID) long id) {
+        var company = companyService.getById(id);
+        var copyrights = copyrightService.getAllByCompany(company);
+        return copyrights.stream().map(CopyrightDto::toDto).collect(Collectors.toList());
     }
 
     @PostMapping("/")

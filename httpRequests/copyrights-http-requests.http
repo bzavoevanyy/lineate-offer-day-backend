@@ -1,0 +1,47 @@
+GET http://localhost:80/api/copyrights/1
+
+###
+
+GET http://localhost:80/api/copyrights/?startTime=2012-01-15T00:00:00.000Z&expiryTime=2100-01-15T00:00:00.000Z
+
+###
+
+POST http://localhost:80/api/copyrights/
+Content-Type: application/json
+
+{
+  "royalty": "1.35",
+  "startTime": "2000-12-03T10:15:30+01:00",
+  "expiryTime": "2050-12-03T10:15:30+01:00",
+  "company": {
+    "id": "1"
+  },
+  "recording": {
+    "id": "3"
+  }
+}
+
+###
+
+PATCH http://localhost:80/api/copyrights/1
+Content-Type: application/merge-patch+json
+
+{
+  "royalty": 9.35,
+  "expiryTime": "2040-12-03T14:15:30+05:00",
+  "company": {
+    "id": 3
+  }
+}
+
+###
+
+DELETE http://localhost:80/api/copyrights/13
+
+###
+
+GET http://localhost:80/api/companies/4/copyrights
+
+###
+
+GET http://localhost:80/api/recordings/1/copyrights/?countTotalRoyalty=true
